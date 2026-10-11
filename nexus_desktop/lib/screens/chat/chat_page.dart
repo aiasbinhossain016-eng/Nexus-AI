@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/chat_message.dart';
-import '../../providers/chat_provider.dart';
+import '../../providers/live_chat_provider.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_text.dart';
 import '../../widgets/chat/chat_input_bar.dart';
@@ -13,7 +13,7 @@ class ChatPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final messages = ref.watch(chatProvider);
+    final messages = ref.watch(liveChatProvider);
     return Column(
       children: [
         Expanded(
@@ -31,7 +31,7 @@ class ChatPage extends ConsumerWidget {
         ),
         ChatInputBar(
           hint: 'Message NexusAI...',
-          onSend: (t) => ref.read(chatProvider.notifier).send(t),
+          onSend: (t) => ref.read(liveChatProvider.notifier).send(t),
         ),
       ],
     );

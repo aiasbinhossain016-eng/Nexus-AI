@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../providers/chat_provider.dart';
+import '../../providers/live_chat_provider.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_text.dart';
 import '../../widgets/chat/chat_input_bar.dart';
@@ -20,7 +20,7 @@ class HomePage extends ConsumerWidget {
   ];
 
   void _send(BuildContext context, WidgetRef ref, String text) {
-    ref.read(chatProvider.notifier).send(text);
+    ref.read(liveChatProvider.notifier).send(text);
     context.go('/chat');
   }
 
