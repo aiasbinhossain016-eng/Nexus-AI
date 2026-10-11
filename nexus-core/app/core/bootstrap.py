@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from pathlib import Path
 
 from app.agents.coding_agent import CodingAgent
