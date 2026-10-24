@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../providers/live_chat_provider.dart';
+import '../../providers/chat/chat_provider.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_text.dart';
 import '../../widgets/chat/chat_input_bar.dart';
@@ -13,14 +13,26 @@ class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   static const _suggestions = [
-    (Icons.event_note_outlined, 'Plan my day', 'Shape priorities into a calm schedule'),
-    (Icons.description_outlined, 'Summarize a document', 'Distill any file to what matters'),
-    (Icons.mail_outline, 'Write an email', 'Draft in the right tone, any language'),
+    (
+      Icons.event_note_outlined,
+      'Plan my day',
+      'Shape priorities into a calm schedule',
+    ),
+    (
+      Icons.description_outlined,
+      'Summarize a document',
+      'Distill any file to what matters',
+    ),
+    (
+      Icons.mail_outline,
+      'Write an email',
+      'Draft in the right tone, any language',
+    ),
     (Icons.lightbulb_outline, 'Explain simply', 'Clear answers without jargon'),
   ];
 
   void _send(BuildContext context, WidgetRef ref, String text) {
-    ref.read(liveChatProvider.notifier).send(text);
+    ref.read(chatProvider.notifier).sendMessage(text);
     context.go('/chat');
   }
 
@@ -33,21 +45,25 @@ class HomePage extends ConsumerWidget {
           children: [
             const NexusOrb(size: 220),
             const SizedBox(height: 48),
-            Text.rich(TextSpan(children: [
-              TextSpan(text: 'Good evening, ', style: AppText.display(40)),
-              // TODO(backend-integration): use the signed-in user's first name.
+            Text.rich(
               TextSpan(
-                  text: 'Nexus',
-                  style: AppText.display(40, color: AppColors.gold)),
-            ])),
-            const SizedBox(height: 8),
-            Text('How can I help you today?', style: AppText.meta.copyWith(fontSize: 15)),
-            const SizedBox(height: 32),
-            ChatInputBar(
-              onSend: (t) => _send(context, ref, t),
-              // TODO: open voice mode route.
-              onMic: () {},
+                children: [
+                  TextSpan(text: 'Good evening, ', style: AppText.display(40)),
+                  // TODO(backend-integration): use the signed-in user's first name.
+                  TextSpan(
+                    text: 'Nexus',
+                    style: AppText.display(40, color: AppColors.gold),
+                  ),
+                ],
+              ),
             ),
+            const SizedBox(height: 8),
+            Text(
+              'How can I help you today?',
+              style: AppText.meta.copyWith(fontSize: 15),
+            ),
+            const SizedBox(height: 32),
+            ChatInputBar(onSend: (t) => _send(context, ref, t)),
             const SizedBox(height: 16),
             ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 760),
@@ -66,14 +82,19 @@ class HomePage extends ConsumerWidget {
                             children: [
                               Icon(_suggestions[i].$1, color: AppColors.gold),
                               const SizedBox(height: 8),
-                              Text(_suggestions[i].$2,
-                                  style: AppText.meta.copyWith(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14)),
+                              Text(
+                                _suggestions[i].$2,
+                                style: AppText.meta.copyWith(
+                                  color: AppColors.text,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                ),
+                              ),
                               const SizedBox(height: 4),
-                              Text(_suggestions[i].$3,
-                                  style: AppText.meta.copyWith(fontSize: 12)),
+                              Text(
+                                _suggestions[i].$3,
+                                style: AppText.meta.copyWith(fontSize: 12),
+                              ),
                             ],
                           ),
                         ),
@@ -84,8 +105,10 @@ class HomePage extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 32),
-            Text('NexusAI can make mistakes. Check important information.',
-                style: AppText.caption),
+            Text(
+              'NexusAI can make mistakes. Check important information.',
+              style: AppText.caption,
+            ),
           ],
         ),
       ),

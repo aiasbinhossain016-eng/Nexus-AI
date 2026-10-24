@@ -1,0 +1,6 @@
+{
+  "name": "@nexus/desktop",
+  "version": "0.0.0",
+  "private": true,
+  "description": "NexusAI Windows desktop client (Electron + React + TypeScript). Populated in milestones M4 and M5."
+}

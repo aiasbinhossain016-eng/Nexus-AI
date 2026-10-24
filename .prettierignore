@@ -1,0 +1,7 @@
+package-lock.json
+uv.lock
+
+# Existing projects that are not formatted by this repository's tooling.
+nexus_desktop/
+nexus-core/
+/README.md

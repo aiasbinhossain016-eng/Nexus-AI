@@ -1,0 +1,13 @@
+{
+  "name": "@nexus/api-contracts",
+  "version": "0.0.0",
+  "private": true,
+  "description": "TypeScript types shared between the desktop client and the backend API.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  }
+}

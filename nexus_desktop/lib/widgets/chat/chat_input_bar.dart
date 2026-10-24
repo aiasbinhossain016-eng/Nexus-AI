@@ -8,12 +8,14 @@ class ChatInputBar extends StatefulWidget {
   final ValueChanged<String> onSend;
   final String hint;
   final VoidCallback? onMic;
+  final bool enabled;
 
   const ChatInputBar({
     super.key,
     required this.onSend,
     this.hint = 'Ask NexusAI anything...',
     this.onMic,
+    this.enabled = true,
   });
 
   @override
@@ -38,6 +40,7 @@ class _ChatInputBarState extends State<ChatInputBar> {
   }
 
   void _submit() {
+    if (!widget.enabled) return;
     final t = _c.text;
     if (t.trim().isEmpty) return;
     widget.onSend(t);
@@ -52,49 +55,57 @@ class _ChatInputBarState extends State<ChatInputBar> {
         height: 64,
         child: GlassContainer(
           active: _focus.hasFocus,
-          padding: const EdgeInsets.fromLTRB(24, 0, 12, 0),
-          child: Row(children: [
-            const Icon(Icons.attach_file),
-            const SizedBox(width: 16),
-            Expanded(
-              child: TextField(
-                controller: _c,
-                focusNode: _focus,
-                onSubmitted: (_) => _submit(),
-                style: AppText.body,
-                cursorColor: AppColors.gold,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: widget.hint,
-                  hintStyle: AppText.body.copyWith(color: AppColors.textMuted),
+          padding: const EdgeInsets.fromLTRB(16, 0, 12, 0),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _c,
+                  focusNode: _focus,
+                  enabled: widget.enabled,
+                  onSubmitted: (_) => _submit(),
+                  style: AppText.body,
+                  cursorColor: AppColors.gold,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: widget.hint,
+                    hintStyle: AppText.body.copyWith(
+                      color: AppColors.textMuted,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            IconButton(
-              onPressed: widget.onMic,
-              icon: const Icon(Icons.mic_none),
-            ),
-            const SizedBox(width: 8),
-            InkWell(
-              customBorder: const CircleBorder(),
-              onTap: _submit,
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: AppColors.goldGradient,
-                  boxShadow: [
-                    BoxShadow(
+              if (widget.onMic != null)
+                IconButton(
+                  onPressed: widget.enabled ? widget.onMic : null,
+                  icon: const Icon(Icons.mic_none),
+                ),
+              if (widget.onMic != null) const SizedBox(width: 8),
+              InkWell(
+                customBorder: const CircleBorder(),
+                onTap: widget.enabled ? _submit : null,
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: AppColors.goldGradient,
+                    boxShadow: [
+                      BoxShadow(
                         color: AppColors.gold.withValues(alpha: .25),
-                        blurRadius: 24),
-                  ],
+                        blurRadius: 24,
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.arrow_upward,
+                    size: 20,
+                    color: AppColors.background,
+                  ),
                 ),
-                child: const Icon(Icons.arrow_upward,
-                    size: 20, color: AppColors.background),
               ),
-            ),
-          ]),
+            ],
+          ),
         ),
       ),
     );

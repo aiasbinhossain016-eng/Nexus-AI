@@ -1,3 +1,6 @@
+# Dependencies
+node_modules/
+
 # Python environments and generated files
 .venv/
 venv/
@@ -8,26 +11,46 @@ ENV/
 **/env/
 **/ENV/
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+
+# Environment and secrets (never commit)
 .env
 .env.*
 !.env.example
 !.env.*.example
+*.pem
+*.key
+*.pfx
+*.p12
+*.cer
 
-# Flutter
-.dart_tool/
+# Build output
+dist/
+out/
+release/
 build/
+coverage/
+.vite/
+*.tsbuildinfo
+
+# Flutter (existing nexus_desktop)
+.dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
 
-# VS Code
-.vscode/
+# Python tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyright/
 
-# IntelliJ
-.idea/
+# Local data (databases, app data)
+*.sqlite
+*.sqlite3
+*.db
+.nexus-data/
 
-# Logs
+# Logs and temporary files
 logs/
 *.log
 *.tmp
@@ -36,23 +59,17 @@ logs/
 *.swp
 *.swo
 
-# OS
-Thumbs.db
-.DS_Store
-
-# Python cache
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-
 # CMake
 CMakeFiles/
 CMakeCache.txt
 
-# Windows
+# Windows / Visual Studio
 *.exe
 .vs/
-
-# Visual Studio / CMake generated state
-.vs/
 CppProperties.json
+
+# OS / editor
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/

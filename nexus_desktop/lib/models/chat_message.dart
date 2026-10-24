@@ -1,11 +1,3 @@
-/// Simple message used by the Home/Chat screens.
-class ChatMessage {
-  final String text;
-  final bool fromUser;
-  const ChatMessage(this.text, {required this.fromUser});
-}
-
-/// Rich message model used by the agent chat service/provider.
 class ChatMessageModel {
   final String id;
   final String role;

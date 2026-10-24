@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../screens/chat/chat_page.dart';
+import '../screens/dashboard/dashboard_page.dart';
 import '../screens/home/home_page.dart';
 import '../screens/shell/app_shell.dart';
 
@@ -15,8 +16,10 @@ CustomTransitionPage<void> _page(GoRouterState s, Widget w) =>
         return FadeTransition(
           opacity: c,
           child: SlideTransition(
-            position: Tween(begin: const Offset(0, .01), end: Offset.zero)
-                .animate(c),
+            position: Tween(
+              begin: const Offset(0, .01),
+              end: Offset.zero,
+            ).animate(c),
             child: child,
           ),
         );
@@ -26,11 +29,18 @@ CustomTransitionPage<void> _page(GoRouterState s, Widget w) =>
 final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
+    GoRoute(
+      path: '/dashboard',
+      pageBuilder: (c, s) => _page(s, const DashboardPage()),
+    ),
     ShellRoute(
       builder: (context, state, child) => AppShell(child: child),
       routes: [
         GoRoute(path: '/', pageBuilder: (c, s) => _page(s, const HomePage())),
-        GoRoute(path: '/chat', pageBuilder: (c, s) => _page(s, const ChatPage())),
+        GoRoute(
+          path: '/chat',
+          pageBuilder: (c, s) => _page(s, const ChatPage()),
+        ),
       ],
     ),
   ],

@@ -1,0 +1,15 @@
+# New code uses LF line endings.
+# The existing nexus_desktop/ and nexus-core/ folders and the root README.md are
+# intentionally NOT listed, so their line endings are left untouched.
+/apps/**        text=auto eol=lf
+/backend/**     text=auto eol=lf
+/packages/**    text=auto eol=lf
+/docs/**        text=auto eol=lf
+/scripts/**     text=auto eol=lf
+/.github/**     text=auto eol=lf
+/*.json         text=auto eol=lf
+/*.mjs          text=auto eol=lf
+/.editorconfig  text=auto eol=lf
+/.npmrc         text=auto eol=lf
+/.node-version  text=auto eol=lf
+/.env.example   text=auto eol=lf

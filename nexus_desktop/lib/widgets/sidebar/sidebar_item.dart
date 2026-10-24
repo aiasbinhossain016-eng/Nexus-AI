@@ -8,19 +8,21 @@ class SidebarItem extends StatelessWidget {
   final String title;
   final bool active;
   final VoidCallback? onTap;
+  final IconData? icon;
 
   const SidebarItem({
     super.key,
     required this.title,
     this.active = false,
     this.onTap,
+    this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(10),
-      onTap: onTap ?? () {},
+      onTap: onTap,
       child: Container(
         height: 40,
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -32,14 +34,24 @@ class SidebarItem extends StatelessWidget {
               ? const Border(left: BorderSide(color: AppColors.gold, width: 2))
               : null,
         ),
-        child: Text(
-          title,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: AppText.meta.copyWith(
-            fontSize: 14,
-            color: active ? AppColors.text : AppColors.textSecondary,
-          ),
+        child: Row(
+          children: [
+            if (icon != null) ...[
+              Icon(icon, size: 16, color: AppColors.textSecondary),
+              const SizedBox(width: 8),
+            ],
+            Expanded(
+              child: Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: AppText.meta.copyWith(
+                  fontSize: 14,
+                  color: active ? AppColors.text : AppColors.textSecondary,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
